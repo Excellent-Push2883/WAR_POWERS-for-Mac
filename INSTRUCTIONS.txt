@@ -1,0 +1,27 @@
+WAR_POWERS v2.8  -  gene deletion / duplication screen (GRCh38)
+==============================================================
+Screening only, NOT clinical. Confirm any hit in IGV / with a depth +
+loss-of-heterozygosity check before treating it as real.
+
+PUT IN ONE FOLDER:
+  WAR_POWERS.sh, genes_clean.txt, your ONE .bam file
+  (+ WAR_POWERS.bat on Windows, or WAR_POWERS.command on Mac)
+
+RUN:
+  Windows : double-click WAR_POWERS.bat   (needs WSL + samtools; the .bat helps set up)
+  Mac     : double-click WAR_POWERS.command (needs: brew install samtools)
+  Any     : in a terminal, cd to the folder and run:  bash WAR_POWERS.sh
+
+WORKS WITH either bare ("7") or chr-prefixed ("chr7") BAMs - it auto-detects.
+The .bam.bai index is built automatically if missing.
+
+OUTPUT (next to the script):
+  deletion_all_data.tsv   every gene + depths + call
+  deletion_hits.tsv       only flagged deletions / MT review
+
+CALLS:
+  LIKELY_FULL_DELETION_OR_MAJOR_COPY_LOSS   gene depth near zero
+  POSSIBLE_PARTIAL_OR_HET_DELETION          gene ~half of clean flank OR genome baseline
+  POSSIBLE_DUPLICATION_OR_HIGH_COPY         gene above flank AND baseline
+  MT_POSSIBLE_HETEROPLASMIC_DELETION_REVIEW mitochondrial gene low vs whole-MT depth
+  NORMAL / NO_CALL / NOT_FOUND_IN_GENCODE / MT_DEPTH_NORMAL / MT_NOT_ASSESSED
